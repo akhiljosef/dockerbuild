@@ -22,7 +22,7 @@ pipeline {
     stage('Deploy Image') {
       steps{
         script {
-          docker.withRegistry( '', jenkins-dockerhub-cred ) {
+          docker.withRegistry('https://registry.hub.docker.com', jenkins-dockerhub-cred ) {
             dockerImage.push("$BUILD_NUMBER")
              dockerImage.push('latest')
 
