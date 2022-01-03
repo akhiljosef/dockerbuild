@@ -1,4 +1,6 @@
 pipeline {
+  //https://medium.com/codex/how-to-push-a-docker-image-to-docker-hub-using-jenkins-487fb1fcbe25
+  //https://faun.pub/docker-build-push-with-declarative-pipeline-in-jenkins-2f12c2e43807
   environment {
     imagename = "aakhil/testcase"
     DOCKERHUB_CREDENTIALS=credentials('jenkins-dockerhub-cred')
