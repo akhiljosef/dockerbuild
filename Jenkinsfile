@@ -1,7 +1,7 @@
 pipeline {
   environment {
     imagename = "aakhil/testcase"
-    registryCredential = 'jenkins-dockerhub-cred'
+    DOCKERHUB_CREDENTIALS=credentials('jenkins-dockerhub-cred')
     dockerImage = ''
   }
   agent any
@@ -19,16 +19,20 @@ pipeline {
         }
       }
     }
-    stage('Deploy Image') {
-      steps{
-        script {
-          docker.withRegistry('https://registry.hub.docker.com', jenkins-dockerhub-cred ) {
-            dockerImage.push("$BUILD_NUMBER")
-             dockerImage.push('latest')
+    stage('Login') {
 
-          }
-        }
-      }
-    }
-  }
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+
+		stage('Push') {
+
+			steps {
+				sh 'docker push aakhil/testcase:latest'
+			}
+		}
+	}
+    
+  
 }  
