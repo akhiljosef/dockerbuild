@@ -6,7 +6,11 @@ pipeline {
     DOCKERHUB_CREDENTIALS=credentials('jenkins-dockerhub-cred')
     dockerImage = ''
   }
-  agent any
+  agent {
+    node {
+        label 'salve1'
+    }
+  }
   stages {
     stage('Cloning Git') {
       steps {
